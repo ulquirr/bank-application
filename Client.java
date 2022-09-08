@@ -3,6 +3,7 @@ public class Client {
     String firstName;
     String lastName;
     double balance;
+    
 
     public Client(int id, String firstName, String lastName, double balance) {
         this.id = id;

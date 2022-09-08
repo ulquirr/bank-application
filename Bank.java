@@ -27,11 +27,18 @@ public class Bank {
         }
     }
 
-    public void getCurrentBalance(int id) {
-        System.out.println("Current balance: " + clientsBalances.get(id));
+    public void withdraw(int id, int money) {
+        var currentBalance = clientsBalances.get(id);
+
+        if (money > currentBalance) {
+            System.out.println("Not enough money on balance");
+        } else {
+            currentBalance -= money;
+            clientsBalances.put(id, currentBalance);
+        }
     }
 
-    public static void withdraw() {
-
+    public void getCurrentBalance(int id) {
+        System.out.println("Current balance: " + clientsBalances.get(id));
     }
 }

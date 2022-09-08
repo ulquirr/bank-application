@@ -6,6 +6,7 @@ public class Main {
 
         parisBank.deposit(client.id, 100);
         parisBank.deposit(client.id, 200);
+        parisBank.withdraw(client.id, 300);
         parisBank.getCurrentBalance(client.id);
     }
 }

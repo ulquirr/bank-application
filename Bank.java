@@ -3,11 +3,19 @@ import java.util.HashMap;
 
 public class Bank {
 
+    String bankName;
+    int clientsQuantity = clients.size();
+
     static ArrayList<Client> clients = new ArrayList<Client>();
     static HashMap<Integer, Integer> clientsBalances = new HashMap<Integer, Integer>();
 
-    public Bank(Client client) {
+    public Bank(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public void addClient(Client client, Bank bank) {
         clients.add(client);
+        client.registerNewBank(bank);
     }
 
     public void getClients() {
@@ -16,25 +24,51 @@ public class Bank {
         }
     }
 
-    public void deposit(int id, int money) {
-        var currentBalance = clientsBalances.get(id);
+    static boolean verifyClient(int id) {
+        int i = 0;
+        boolean found = false;
 
-        if (currentBalance == null) {
-            clientsBalances.put(id, money);
-        } else {
-            currentBalance += money;
-            clientsBalances.put(id, currentBalance);
+        while (i < clients.size()) {
+            if (clients.get(i).id == id) {
+                found = true;
+                break;
+            }
+
+            i++;
         }
+
+        return found;
+
+    }
+
+    public void deposit(int id, int money) {
+        if (verifyClient(id)) {
+            var currentBalance = clientsBalances.get(id);
+
+            if (currentBalance == null) {
+                clientsBalances.put(id, money);
+            } else {
+                currentBalance += money;
+                clientsBalances.put(id, currentBalance);
+            }
+        } else {
+            System.out.println("User is not a client!");
+        }
+
     }
 
     public void withdraw(int id, int money) {
-        var currentBalance = clientsBalances.get(id);
+        if (verifyClient(id)) {
+            var currentBalance = clientsBalances.get(id);
 
-        if (money > currentBalance) {
-            System.out.println("Not enough money on balance");
+            if (money > currentBalance) {
+                System.out.println("Not enough money on balance");
+            } else {
+                currentBalance -= money;
+                clientsBalances.put(id, currentBalance);
+            }
         } else {
-            currentBalance -= money;
-            clientsBalances.put(id, currentBalance);
+            System.out.println("User is not a client!");
         }
     }
 

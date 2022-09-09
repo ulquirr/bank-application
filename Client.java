@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+
 public class Client {
     int id;
     String firstName;
     String lastName;
-    double balance;
+    double balance;   
+    static ArrayList<Bank> banks = new ArrayList<Bank>();
+
     
 
     public Client(int id, String firstName, String lastName, double balance) {
@@ -10,6 +14,10 @@ public class Client {
         this.balance = balance;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public void registerNewBank (Bank bank) {
+        banks.add(bank);
     }
 
     public String toString() {
